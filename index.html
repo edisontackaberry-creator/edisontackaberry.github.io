@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>McGill Athletes in Business</title>
+<meta name="description" content="McGill Athletes in Business is a student club for McGill varsity athletes building careers in business. Est. 2025.">
+<meta property="og:title" content="McGill Athletes in Business">
+<meta property="og:description" content="A student club for McGill varsity athletes building careers in business.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ED1B2F">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+
+<!--
+  HOW TO EDIT THIS SITE
+  Everything is in this one file. Search for "EDIT" to find the parts you
+  are most likely to change: the About text, the Members list, the Events
+  list and the Join text. To add a member or an event, copy one whole
+  <li> ... </li> block, paste it underneath, and change the words.
+  Photos live in the img folder.
+-->
+
+<style>
+  @font-face {
+    font-family: "Archivo";
+    src: url("fonts/archivo.woff2") format("woff2");
+    font-weight: 100 900;
+    font-stretch: 62% 125%;
+    font-display: swap;
+  }
+
+  :root {
+    --red: #ED1B2F;        /* McGill red: backgrounds and large type */
+    --red-ink: #C1121F;    /* darker red for small text on white */
+    --black: #000;
+    --white: #fff;
+    --chalk: #F2F1EE;
+    --grey: #555;
+    --soft: #C9C9C9;       /* secondary text on black */
+    --rule: #D6D4CF;
+    --display: "Archivo", Impact, "Arial Narrow", sans-serif;
+    --body: "Archivo", Arial, Helvetica, sans-serif;
+    --gutter: clamp(1rem, 4vw, 3.5rem);
+    --max: 78rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  h1, h2, h3, p, ul, figure, blockquote { margin: 0; }
+  ul { padding: 0; list-style: none; }
+  [id] { scroll-margin-top: 5rem; }
+
+  :focus-visible { outline: 3px solid var(--black); outline-offset: 3px; }
+  .on-dark :focus-visible { outline-color: var(--white); }
+
+  .skip {
+    position: absolute; left: 1rem; top: -4rem; z-index: 20;
+    background: var(--black); color: var(--white);
+    padding: .75rem 1rem; font-weight: 700;
+  }
+  .skip:focus { top: 1rem; }
+
+  .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+
+  /* Display type: condensed, heavy, uppercase. Used for headings only. */
+  .display {
+    font-family: var(--display);
+    font-stretch: 62%;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: .86;
+    letter-spacing: -.005em;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 3rem; padding: .7rem 1.4rem;
+    font-weight: 800; font-size: 1rem; line-height: 1.2;
+    text-decoration: none; border: 2px solid var(--black);
+    transition: transform .12s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn-black { background: var(--black); color: var(--white); }
+  .btn-white { background: var(--white); color: var(--black); }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--white);
+    border-bottom: 3px solid var(--black);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; gap: .5rem 1.5rem; flex-wrap: wrap;
+    padding-block: .55rem;
+  }
+  .brand {
+    display: flex; align-items: center; gap: .6rem;
+    text-decoration: none; margin-right: auto;
+  }
+  .brand img { width: 2.25rem; }
+  .brand span {
+    font-family: var(--display); font-stretch: 70%; font-weight: 900;
+    font-size: 1.375rem; text-transform: uppercase; line-height: 1;
+  }
+  .site-nav ul { display: flex; gap: .25rem; }
+  .site-nav a {
+    display: block; padding: .6rem .75rem;
+    font-weight: 700; text-decoration: none;
+  }
+  .site-nav a:hover {
+    text-decoration: underline; text-decoration-thickness: 3px;
+    text-underline-offset: 6px; text-decoration-color: var(--red);
+  }
+  .site-header .btn { min-height: 2.75rem; padding: .5rem 1.1rem; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    background: var(--red); color: var(--white);
+  }
+  .hero .wrap {
+    position: relative;
+    display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+    align-items: center; gap: 2rem;
+    min-height: min(46rem, calc(100svh - 4rem));
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+  /* Black slanted panel that holds the shield, with a white stripe on its edge */
+  .hero::before, .hero::after {
+    content: ""; position: absolute; top: 0; bottom: 0; right: 0;
+    width: 42%;
+    clip-path: polygon(24% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .hero::before { background: var(--white); transform: translateX(-1.1rem); }
+  .hero::after  { background: var(--black); }
+
+  .hero-copy { position: relative; z-index: 1; }
+  .hero h1 { font-size: clamp(4.5rem, 13.2vw, 12.25rem); margin-left: -.02em; }
+  .hero h1 .line { display: block; }
+  .hero h1 .mid { display: flex; align-items: center; gap: .16em; }
+  .hero h1 .aside {
+    font-family: var(--body); font-stretch: 100%; font-weight: 800;
+    font-size: clamp(.875rem, 1.35vw, 1.25rem); line-height: 1.2;
+    letter-spacing: 0; text-transform: none;
+    color: var(--black);
+    border-left: .22em solid var(--black); padding-left: .7em;
+  }
+  .hero .lede {
+    margin-top: 1.5rem; max-width: 26ch;
+    font-size: clamp(1.25rem, 1.9vw, 1.625rem); font-weight: 650; line-height: 1.25;
+    color: var(--black);
+  }
+  .hero .actions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: .75rem; }
+
+  .hero-shield { position: relative; z-index: 1; justify-self: end; width: min(100%, 23rem); }
+  .hero-shield img { width: 100%; filter: drop-shadow(0 1.5rem 2.5rem rgba(237, 27, 47, .4)); }
+
+  /* One load moment: the three headline lines rise into place. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1 .line { animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; }
+    .hero h1 .line:nth-child(2) { animation-delay: .08s; }
+    .hero h1 .line:nth-child(3) { animation-delay: .16s; }
+    @keyframes rise { from { transform: translateY(.35em); opacity: 0; } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+    .btn:hover { transform: none; }
+  }
+
+  /* ---------- Sections ---------- */
+  .section { padding-block: clamp(4rem, 9vw, 7.5rem); }
+  .section h2 { font-size: clamp(3.25rem, 9vw, 8rem); }
+  .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; }
+  .section-head p { max-width: 36ch; color: var(--grey); }
+
+  /* About */
+  .about-grid {
+    margin-top: 2.5rem;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 5rem); align-items: start;
+  }
+  .about-body p + p { margin-top: 1rem; }
+  .about-body .lead { font-size: clamp(1.375rem, 2.2vw, 1.75rem); line-height: 1.3; font-weight: 700; }
+  .about-photo img { width: 100%; border: 3px solid var(--black); }
+  .about-photo figcaption { margin-top: .6rem; font-size: .9375rem; color: var(--grey); }
+
+  .facts {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 3px solid var(--black);
+  }
+  .facts li { padding: 1.5rem 1.75rem 0 0; }
+  .facts li + li { padding-left: 1.75rem; border-left: 1px solid var(--rule); }
+  .facts h3 {
+    font-family: var(--display); font-stretch: 62%; font-weight: 900;
+    text-transform: uppercase; font-size: 2rem; line-height: 1; color: var(--red-ink);
+  }
+  .facts p { margin-top: .6rem; }
+
+  /* Members: laid out like a team roster */
+  .members { background: var(--black); color: var(--white); }
+  .members .section-head p { color: var(--soft); }
+  .roster { margin-top: 2.5rem; border-top: 3px solid var(--white); }
+  .roster-labels, .roster li {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1.05fr) minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: .5rem 2rem;
+  }
+  .roster-labels { padding: .75rem 0; color: var(--soft); font-size: .9375rem; font-weight: 700; border-bottom: 1px solid #555; }
+  .roster li { padding: 1.5rem 0; border-bottom: 1px solid #555; align-items: start; }
+  .roster .photo { width: 5.5rem; aspect-ratio: 1; object-fit: cover; }
+  .roster h3 {
+    font-family: var(--display); font-stretch: 62%; font-weight: 900;
+    text-transform: uppercase; font-size: clamp(2rem, 3.2vw, 2.75rem); line-height: .95;
+  }
+  .roster .team { margin-top: .4rem; font-weight: 700; }
+  .roster .study, .roster .place { color: var(--soft); }
+  .roster .job strong { display: block; font-size: 1.1875rem; line-height: 1.3; }
+  .roster blockquote { font-size: 1.0625rem; line-height: 1.5; }
+  .roster blockquote::before { content: "\201C"; }
+  .roster blockquote::after { content: "\201D"; }
+  /* Row labels: read by screen readers at every width, shown on narrow screens */
+  .roster .mlabel {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+
+  /* Events: laid out like a season schedule */
+  .events { background: var(--chalk); }
+  .schedule { margin-top: 2.5rem; border-top: 3px solid var(--black); }
+  .schedule li {
+    display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) minmax(0, 16rem);
+    gap: .5rem 2rem; align-items: center;
+    padding: 1.5rem 0; border-bottom: 1px solid var(--black);
+  }
+  .schedule time {
+    font-family: var(--display); font-stretch: 62%; font-weight: 900;
+    text-transform: uppercase; font-size: 2.75rem; line-height: .9; color: var(--red-ink);
+  }
+  .schedule time small { display: block; font-size: 1.125rem; color: var(--black); margin-bottom: .2rem; }
+  .schedule h3 { font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
+  .schedule .what p { margin-top: .3rem; color: #333; max-width: 52ch; }
+  .schedule .where { font-weight: 700; }
+  .schedule .where span { display: block; font-weight: 400; color: var(--grey); }
+  .schedule .empty { display: block; padding: 2rem 0; }
+  .schedule .empty h3 { font-size: 1.5rem; }
+  .schedule .empty p { margin-top: .4rem; max-width: 52ch; }
+  .text-link { font-weight: 800; text-decoration-color: var(--red); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+
+  /* Join */
+  .join { background: var(--red); color: var(--white); }
+  .join .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 4rem; align-items: end; }
+  .join h2 { font-size: clamp(4.5rem, 16vw, 15rem); }
+  .join p { color: var(--black); font-size: 1.3125rem; font-weight: 650; line-height: 1.35; max-width: 32ch; }
+  .join p + p { margin-top: .75rem; }
+  .join .actions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: .75rem; }
+
+  /* Footer */
+  .site-footer { background: var(--black); color: var(--white); padding-block: 2.5rem; }
+  .site-footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem; }
+  .site-footer img { width: 3.25rem; }
+  .site-footer p { margin-right: auto; color: var(--soft); }
+  .site-footer p strong { color: var(--white); display: block; }
+  .site-footer ul { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+  .site-footer a { display: inline-block; padding: .6rem 0; font-weight: 700; text-underline-offset: 4px; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+
+  /* ---------- Narrow screens ---------- */
+  @media (max-width: 62rem) {
+    .roster-labels { display: none; }
+    .roster li { grid-template-columns: 5.5rem minmax(0, 1fr); }
+    .roster .job, .roster blockquote { grid-column: 2; }
+    .roster .mlabel {
+      position: static; width: auto; height: auto; overflow: visible; clip: auto; clip-path: none; white-space: normal;
+      display: block; color: var(--soft); font-size: .9375rem; font-weight: 700; margin-bottom: .15rem;
+    }
+  }
+  @media (max-width: 56rem) {
+    .hero .wrap { grid-template-columns: 1fr; min-height: 0; padding-top: 0; gap: 2.25rem; }
+    .hero::before { display: none; }
+    .hero::after {
+      width: 100%; top: -1px; bottom: auto; height: 14.5rem;
+      clip-path: polygon(0 0, 100% 0, 100% 76%, 0 100%);
+    }
+    .hero-shield { order: -1; justify-self: center; width: 8.75rem; padding-top: 1.25rem; }
+    .hero h1 { font-size: clamp(4rem, 24vw, 13rem); }
+    .hero h1 .aside { font-size: clamp(.875rem, 3.4vw, 1.25rem); }
+    .hero .lede { max-width: 30ch; }
+
+    .about-grid, .join .wrap { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: 1fr; }
+    .facts li, .facts li + li { padding: 1.5rem 0; border-left: 0; }
+    .facts li + li { border-top: 1px solid var(--rule); }
+    .facts li:last-child { padding-bottom: 0; }
+
+    .schedule li { grid-template-columns: 6.5rem minmax(0, 1fr); align-items: start; }
+    .schedule time { font-size: 2.25rem; }
+    .schedule .where { grid-column: 2; }
+  }
+  @media (max-width: 40rem) {
+    .site-nav { order: 3; width: 100%; }
+    .site-nav ul { margin-inline: -.75rem; }
+    [id] { scroll-margin-top: 7.5rem; }
+    .roster li { grid-template-columns: 4.5rem minmax(0, 1fr); gap: .75rem 1rem; }
+    .roster .photo { width: 4.5rem; }
+    .roster .job, .roster blockquote { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="McGill Athletes in Business, back to top">
+      <img src="img/abs-logo.webp" alt="" width="497" height="640">
+      <span>McGill ABS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#members">Members</a></li>
+        <li><a href="#events">Events</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-black" href="#join">How to join</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1 class="display">
+          <span class="line">Athletes</span>
+          <span class="line mid">in <span class="aside" aria-hidden="true">McGill University<br>Est. 2025</span></span>
+          <span class="line">Business</span>
+        </h1>
+        <p class="lede">The McGill club for varsity athletes building careers in business.</p>
+        <div class="actions">
+          <a class="btn btn-black" href="#join">How to join</a>
+          <a class="btn btn-white" href="#members">Meet our members</a>
+        </div>
+      </div>
+      <div class="hero-shield">
+        <img src="img/abs-logo.webp" alt="McGill ABS shield logo, established 2025" width="497" height="640">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <!-- EDIT: the About text below was drafted from your Instagram and LinkedIn posts.
+       Change it to describe the club in your own words. -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <h2 class="display">About</h2>
+
+      <div class="about-grid">
+        <div class="about-body">
+          <p class="lead">McGill Athletes in Business brings together varsity athletes from across McGill's teams and faculties who want a career in business.</p>
+          <p>The club was founded in 2025 and is run by students. New associates join through an application each fall.</p>
+          <p>Our members spend their summers in different cities, countries and industries, and bring what they learn back to the rest of the club.</p>
+        </div>
+        <figure class="about-photo">
+          <img src="img/members.webp" alt="About 25 club members in business attire standing together outdoors on a winter day." width="698" height="270">
+          <figcaption>Members of McGill Athletes in Business.</figcaption>
+        </figure>
+      </div>
+
+      <ul class="facts">
+        <li>
+          <h3>Teams</h3>
+          <p>Men's soccer, men's basketball, women's basketball and more.</p>
+        </li>
+        <li>
+          <h3>Studying</h3>
+          <p>Finance, economics, engineering and more.</p>
+        </li>
+        <li>
+          <h3>Summer 2026</h3>
+          <p>Internships in London, New York, Toronto and Montreal.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= MEMBERS ================= -->
+  <section class="section members on-dark" id="members">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display">Members</h2>
+        <p>Where four of our members spent summer 2026, and what they'd tell you about it.</p>
+      </div>
+
+      <div class="roster">
+        <div class="roster-labels" aria-hidden="true">
+          <span></span><span>Member</span><span>Summer 2026 internship</span><span>Advice</span>
+        </div>
+
+        <!-- EDIT: one <li> per member. Copy a whole <li> block to add another.
+             Put the photo in the img folder (square, about 240 x 240 pixels). -->
+        <ul>
+          <li>
+            <img class="photo" src="img/angus-logan.webp" alt="" width="240" height="240" loading="lazy">
+            <div>
+              <h3>Angus Logan</h3>
+              <p class="team">Men's Soccer</p>
+              <p class="study">U3, Finance</p>
+            </div>
+            <div class="job">
+              <span class="mlabel">Summer 2026 internship</span>
+              <strong>PwC and Raymond James</strong>
+              <p>Innovation and Data; Wealth Management</p>
+              <p class="place">London, England and Montreal, Quebec</p>
+            </div>
+            <blockquote><span class="sr-only">Advice: </span>Go the extra step with initiatives and speak to as many people as you can.</blockquote>
+          </li>
+
+          <li>
+            <img class="photo" src="img/will-robinson.webp" alt="" width="240" height="240" loading="lazy">
+            <div>
+              <h3>Will Robinson</h3>
+              <p class="team">Men's Basketball</p>
+              <p class="study">U2, Finance, concentration in Entrepreneurship</p>
+            </div>
+            <div class="job">
+              <span class="mlabel">Summer 2026 internship</span>
+              <strong>Dentons</strong>
+              <p>Business Services Intern</p>
+              <p class="place">Toronto, Ontario</p>
+            </div>
+            <blockquote><span class="sr-only">Advice: </span>Stay curious and remember that similar to sport, it's all about getting reps and practicing to improve.</blockquote>
+          </li>
+
+          <li>
+            <img class="photo" src="img/emilia-diaz-ruiz.webp" alt="" width="240" height="240" loading="lazy">
+            <div>
+              <h3>Emilia Diaz-Ruiz</h3>
+              <p class="team">Women's Basketball</p>
+              <p class="study">U2, Chemical Engineering, minor in Aerospace Engineering</p>
+            </div>
+            <div class="job">
+              <span class="mlabel">Summer 2026 internship</span>
+              <strong>Biocolloids and Surfaces Laboratory, McGill University</strong>
+              <p>Research Assistant</p>
+              <p class="place">Montreal, Quebec</p>
+            </div>
+            <blockquote><span class="sr-only">Advice: </span>Start early, take initiative, and don't be afraid to reach out to professors whose work interests you. Even something as simple as introducing yourself and showing genuine interest can open the door to endless opportunities.</blockquote>
+          </li>
+
+          <li>
+            <img class="photo" src="img/eddie-tackaberry.webp" alt="" width="240" height="240" loading="lazy">
+            <div>
+              <h3>Eddie Tackaberry</h3>
+              <p class="team">Men's Soccer</p>
+              <p class="study">U3, Economics, minor in Management</p>
+            </div>
+            <div class="job">
+              <span class="mlabel">Summer 2026 internship</span>
+              <strong>Bloomberg LP</strong>
+              <p>Sales and Analytics Intern</p>
+              <p class="place">New York City, New York</p>
+            </div>
+            <blockquote><span class="sr-only">Advice: </span>One thing I have learned about success from my time at Bloomberg is to not only work as hard as you can when it comes to projects, tasks, presentations, and tangible work as a whole, but also putting a lot of effort into your relationships within a company and your day-to-day interactions with people.</blockquote>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EVENTS ================= -->
+  <section class="section events" id="events">
+    <div class="wrap">
+      <h2 class="display">Events</h2>
+
+      <!-- EDIT: when you have an event, delete the "empty" <li> below and add one
+           <li> per event using this pattern:
+
+        <li>
+          <time datetime="2026-10-21"><small>Wed</small>Oct 21</time>
+          <div class="what">
+            <h3>Event name</h3>
+            <p>One or two lines on what the event is and who is speaking.</p>
+          </div>
+          <p class="where">6:00 PM<span>Building and room</span></p>
+        </li>
+      -->
+      <ul class="schedule">
+        <li class="empty">
+          <h3>No events posted yet</h3>
+          <p>Fall 2026 events will be listed here. They're announced first on <a class="text-link" href="https://www.instagram.com/mcgillabs_/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= JOIN ================= -->
+  <!-- EDIT: update the dates here when applications reopen. -->
+  <section class="section join" id="join">
+    <div class="wrap">
+      <h2 class="display">Join</h2>
+      <div>
+        <p>We take on new associates through an application each fall.</p>
+        <p>Applications for Fall 2026 closed on September 14. Follow us to hear when the next round opens.</p>
+        <div class="actions">
+          <a class="btn btn-black" href="https://www.instagram.com/mcgillabs_/" target="_blank" rel="noopener">Follow on Instagram<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-white" href="https://www.linkedin.com/company/mcgillabs/" target="_blank" rel="noopener">Follow on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <img src="img/abs-logo.webp" alt="" width="497" height="640" loading="lazy">
+    <p><strong>McGill Athletes in Business</strong>Student-run club, Montreal. Est. 2025.</p>
+    <ul>
+      <li><a href="https://www.instagram.com/mcgillabs_/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.linkedin.com/company/mcgillabs/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="#top">Back to top</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
